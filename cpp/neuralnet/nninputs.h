@@ -71,17 +71,6 @@ namespace NNInputs {
     Reserved_7, // 7: koRecapBlocked (in the encore, no-second-ko-capture locations, encore ko prohibitions where we have to pass for ko)
     Grounded_8, // 8: unused? (in the encore, no-second-ko-capture locations, encore ko prohibitions where we have to pass for ko)
 
-    Prev1Loc_9, // 9: prev 1 Loc history
-    Prev2Loc_10, // 10: prev 2 Loc history
-    Prev3Loc_11, // 11: prev 3 Loc history
-    Prev4Loc_12, // 12: prev 4 Loc history
-    Prev5Loc_13, // 13: prev 5 Loc history
-
-    LadderCaptured_14, // 14: ladder captured
-    LadderCapturedPrevious_15, // 15: ladder captured prev
-    LadderCapturedPrevious2_16, // 16: ladder captured prev 2
-    LadderWorkingMoves_17, // 17: ladder working moves
-
     PlayerCaptures_18, // 18: pla current territory, not counting group tax
     PlayerOppCaptures_19, // 19: opp current territory, not counting group tax
     PlayerSurroundings_20, // 20: pla second encore starting stones
@@ -131,9 +120,6 @@ namespace NNInputs {
 
   constexpr int NUM_FEATURES_SPATIAL_V7_DOTS = static_cast<int>(DotsSpatialFeature::COUNT);
   constexpr int NUM_FEATURES_GLOBAL_V7_DOTS = static_cast<int>(DotsGlobalFeature::COUNT);
-
-  static_assert(NUM_FEATURES_SPATIAL_V7_DOTS == NUM_FEATURES_SPATIAL_V7); // Might be changed later if needed
-  static_assert(NUM_FEATURES_GLOBAL_V7_DOTS == NUM_FEATURES_GLOBAL_V7);
 
   Hash128 getHash(
     const Board& board, const BoardHistory& boardHistory, Player nextPlayer,

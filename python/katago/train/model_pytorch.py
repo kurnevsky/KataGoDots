@@ -1671,9 +1671,9 @@ class Model(torch.nn.Module):
         self.activation = "relu" if "activation" not in config else config["activation"]
 
         if config["initial_conv_1x1"]:
-            self.conv_spatial = torch.nn.Conv2d(22, self.c_trunk, kernel_size=1, padding="same", bias=False)
+            self.conv_spatial = torch.nn.Conv2d(13, self.c_trunk, kernel_size=1, padding="same", bias=False)
         else:
-            self.conv_spatial = torch.nn.Conv2d(22, self.c_trunk, kernel_size=3, padding="same", bias=False)
+            self.conv_spatial = torch.nn.Conv2d(13, self.c_trunk, kernel_size=3, padding="same", bias=False)
         self.linear_global = torch.nn.Linear(19, self.c_trunk, bias=False)
 
         if "metadata_encoder" in config and config["metadata_encoder"] is not None:
@@ -1681,7 +1681,7 @@ class Model(torch.nn.Module):
         else:
             self.metadata_encoder = None
 
-        self.bin_input_shape = [22, pos_len_y, pos_len_x]
+        self.bin_input_shape = [13, pos_len_y, pos_len_x]
         self.global_input_shape = [19]
 
         self.blocks = torch.nn.ModuleList()

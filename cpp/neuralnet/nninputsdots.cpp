@@ -107,47 +107,9 @@ void NNInputs::fillRowV7Dots(
 
   assert(deadDotsCount == board.numBlackCaptures + board.numWhiteCaptures);
 
-  int maxTurnsOfHistoryToInclude = 5;
   const vector<Move>& moveHistory = hist.moveHistory;
-  if (!hasLegalNonGroundMoves) {
-    // Don't include history for non-resultative games:
-    //   * There are no legal non-ground moves to play
-    //   * The number of moves exceeds the max limit (not yet implemented).
-    //     Although, it shouldn't happen in any Dots game (grounding should happen before).
-    maxTurnsOfHistoryToInclude = 0;
-  }
-  const int amountOfHistoryToTryToUse = std::min(maxTurnsOfHistoryToInclude, hist.numApproxValidTurnsThisPhase);
   const int moveHistoryLen = static_cast<int>(moveHistory.size());
   assert(moveHistoryLen >= hist.numApproxValidTurnsThisPhase);
-
-  int numTurnsOfHistoryIncluded = 0; // TODO: it will be used for ladders, https://github.com/KvanTTT/KataGoDots/issues/3
-  Player currentPla = opp;
-  for (int i = 0; i < amountOfHistoryToTryToUse; i++) {
-    const int index = moveHistoryLen - i - 1;
-    if (index < 0) break;
-
-    const Move& prevMove = moveHistory[index];
-
-    // History is only actual for strict moves order (colors should be alternating)
-    if (prevMove.pla != currentPla) break;
-
-    const Loc prevLoc = prevMove.loc;
-
-    // Grounding is not expected since it's always an ending move.
-#ifdef NDEBUG
-    // Check for null and ground move just in case
-    if (prevLoc == Board::NULL_LOC || prevLoc == Board::PASS_LOC) continue;
-#else
-    assert(prevLoc != Board::NULL_LOC && prevLoc != Board::PASS_LOC);
-#endif
-
-    numTurnsOfHistoryIncluded++;
-
-    const int histPos = NNPos::locToPos(prevLoc, xSize, nnXLen, nnYLen);
-    setRowBin(rowBin, histPos, static_cast<int>(DotsSpatialFeature::Prev1Loc_9) + i, 1.0f, posStride, featureStride);
-
-    currentPla = getOpp(currentPla);
-  }
 
   //Komi and any score adjustments
   float selfKomi = hist.currentSelfKomi(nextPlayer,nnInputParams.drawEquivalentWinsForWhite);

@@ -1042,7 +1042,7 @@ int NNInputs::getNumberOfSpatialFeatures(const int version, const bool isDots) {
     case 4: if (!isDots) return NUM_FEATURES_SPATIAL_V4; break;
     case 5: if (!isDots) return NUM_FEATURES_SPATIAL_V5; break;
     case 6: if (!isDots) return NUM_FEATURES_SPATIAL_V6; break;
-    case 7: return NUM_FEATURES_SPATIAL_V7; // Use NUM_FEATURES_SPATIAL_V7_DOTS if it's value is changed
+    case 7: return NUM_FEATURES_SPATIAL_V7_DOTS;
     default: break;
   }
   throw std::range_error("Invalid input version: " + to_string(version) + (isDots ? " (Dots game)" : ""));
@@ -1054,7 +1054,7 @@ int NNInputs::getNumberOfGlobalFeatures(const int version, const bool isDots) {
     case 4: if (!isDots) return NUM_FEATURES_GLOBAL_V4; break;
     case 5: if (!isDots) return NUM_FEATURES_GLOBAL_V5; break;
     case 6: if (!isDots) return NUM_FEATURES_GLOBAL_V6; break;
-    case 7: return NUM_FEATURES_GLOBAL_V7;  // Use NUM_FEATURES_GLOBAL_V7_DOTS if it's value is changed
+    case 7: return NUM_FEATURES_GLOBAL_V7_DOTS;
     default: break;
   }
   throw std::range_error("Invalid input version: " + to_string(version) + (isDots ? " (Dots game)" : ""));
@@ -2439,8 +2439,8 @@ void NNInputs::fillRowV7(
   assert(nnYLen <= NNPos::MAX_BOARD_LEN);
   assert(board.x_size <= nnXLen);
   assert(board.y_size <= nnYLen);
-  std::fill(rowBin,rowBin+NUM_FEATURES_SPATIAL_V7*nnXLen*nnYLen,false);
-  std::fill(rowGlobal,rowGlobal+NUM_FEATURES_GLOBAL_V7,0.0f);
+  std::fill(rowBin,rowBin+NUM_FEATURES_SPATIAL_V7_DOTS*nnXLen*nnYLen,false);
+  std::fill(rowGlobal,rowGlobal+NUM_FEATURES_GLOBAL_V7_DOTS,0.0f);
 
   Player pla = nextPlayer;
   Player opp = getOpp(pla);
@@ -2451,7 +2451,7 @@ void NNInputs::fillRowV7(
   int posStride;
   if(useNHWC) {
     featureStride = 1;
-    posStride = NNInputs::NUM_FEATURES_SPATIAL_V7;
+    posStride = NNInputs::NUM_FEATURES_SPATIAL_V7_DOTS;
   }
   else {
     featureStride = nnXLen * nnYLen;

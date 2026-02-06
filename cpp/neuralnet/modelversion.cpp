@@ -91,7 +91,7 @@ int NNModelVersion::getNumSpatialFeatures(const int modelVersion, const bool dot
       break;
     default:
       if (modelVersion <= latestModelVersionImplemented) {
-        return NNInputs::NUM_FEATURES_SPATIAL_V7; // Use NUM_FEATURES_SPATIAL_V7_DOTS if it's value is changed
+        return NNInputs::NUM_FEATURES_SPATIAL_V7_DOTS;
       }
       break;
   }
@@ -125,7 +125,7 @@ int NNModelVersion::getNumGlobalFeatures(const int modelVersion, const bool dots
       break;
     default:
       if (modelVersion <= latestModelVersionImplemented) {
-        return NNInputs::NUM_FEATURES_GLOBAL_V7;  // Use NUM_FEATURES_GLOBAL_V7_DOTS if it's value is changed
+        return NNInputs::NUM_FEATURES_GLOBAL_V7_DOTS;
       }
       break;
   }

@@ -699,8 +699,8 @@ int MainCmds::writetrainingdata(const vector<string>& args) {
 
   static_assert(NNModelVersion::latestInputsVersionImplemented == 7, "");
   const int inputsVersion = 7;
-  const int numBinaryChannels = NNInputs::NUM_FEATURES_SPATIAL_V7;
-  const int numGlobalChannels = NNInputs::NUM_FEATURES_GLOBAL_V7;
+  const int numBinaryChannels = NNInputs::NUM_FEATURES_SPATIAL_V7_DOTS;
+  const int numGlobalChannels = NNInputs::NUM_FEATURES_GLOBAL_V7_DOTS;
 
   const std::set<string> noTrainUsers = loadStrippedTxtFileLines(noTrainUsersFile);
   const std::set<string> onlyTrainUsers =
