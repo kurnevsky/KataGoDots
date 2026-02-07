@@ -47,7 +47,7 @@ def get_version(config: ModelConfig):
 def get_num_bin_input_features(config: ModelConfig):
     version = get_version(config)
     if 10 <= version <= 16:  # Dots game uses the same number of spatial features
-        return 13
+        return 8
     else:
         assert(False)
 

@@ -62,19 +62,17 @@ struct MiscNNInputParams {
 namespace NNInputs {
   enum class DotsSpatialFeature  {
     OnBoard_0, // 0: On board
-    PlayerActive_1, // 1: Pla stone
-    PlayerOppActive_2, // 2: Opp stone
+
     PlayerPlaced_3, // 3: 1 libs
     PlayerOppPlaced_4, // 4: 2 libs
-    DeadDots_5, // 5: 3 libs
-    Reserved_6, // 6: superKoBanned (in the encore, no-second-ko-capture locations, encore ko prohibitions where we have to pass for ko)
-    Reserved_7, // 7: koRecapBlocked (in the encore, no-second-ko-capture locations, encore ko prohibitions where we have to pass for ko)
-    Grounded_8, // 8: unused? (in the encore, no-second-ko-capture locations, encore ko prohibitions where we have to pass for ko)
 
     PlayerCaptures_18, // 18: pla current territory, not counting group tax
     PlayerOppCaptures_19, // 19: opp current territory, not counting group tax
+
     PlayerSurroundings_20, // 20: pla second encore starting stones
     PlayerOppSurroundings_21, // 21: opp second encore starting stones
+
+    Grounded_8, // 8: unused? (in the encore, no-second-ko-capture locations, encore ko prohibitions where we have to pass for ko)
 
     COUNT, // = 22
   };

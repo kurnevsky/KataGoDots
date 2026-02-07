@@ -61,13 +61,6 @@ void NNInputs::fillRowV7Dots(
       hasLegalNonGroundMoves = hasLegalNonGroundMoves ||
         (activeColor == C_EMPTY && !board.isIllegalSuicide(loc, nextPlayer, rules.multiStoneSuicideLegal));
 
-      if (activeColor == pla)
-        setSpatial(pos, DotsSpatialFeature::PlayerActive_1);
-      else if (activeColor == opp)
-        setSpatial(pos, DotsSpatialFeature::PlayerOppActive_2);
-      else
-        assert(C_EMPTY == activeColor);
-
       if (placedColor == pla)
         setSpatial(pos, DotsSpatialFeature::PlayerPlaced_3);
       else if (placedColor == opp)
@@ -76,8 +69,6 @@ void NNInputs::fillRowV7Dots(
         assert(C_EMPTY == placedColor);
 
       if (activeColor != C_EMPTY && placedColor != C_EMPTY && placedColor != activeColor) {
-        // Needed for more correct score calculation, but probably it's redundant considering placed dots
-        setSpatial(pos, DotsSpatialFeature::DeadDots_5);
         deadDotsCount++;
       }
 
