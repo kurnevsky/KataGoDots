@@ -2226,6 +2226,33 @@ void WriteSgf::writeSgf(
     if(!comment.empty())
       out << "C[" << comment << "]";
 
+    if(gameData != nullptr && i >= startTurnIdx) {
+      size_t turnAfterStart = i - startTurnIdx;
+      if(turnAfterStart < gameData->policyTargetsByTurn.size() && gameData->policyTargetsByTurn[turnAfterStart].policyTargets != nullptr) {
+        out << "ZR[" << std::boolalpha << (gameData->targetWeightByTurn[turnAfterStart] >= 1) << std::noboolalpha << "]";
+
+        for(size_t j = 0; j < gameData->policyTargetsByTurn[turnAfterStart].policyTargets->size(); j++) {
+          Loc cur_loc = (*gameData->policyTargetsByTurn[turnAfterStart].policyTargets)[j].loc;
+
+          if(cur_loc == Board::NULL_LOC || cur_loc == Board::PASS_LOC || cur_loc == Board::RESIGN_LOC)
+            continue;
+
+          out << "[";
+
+          float cur_policy = (*gameData->policyTargetsByTurn[turnAfterStart].policyTargets)[j].policyTarget;
+
+          if(cur_loc == loc)
+            assert(cur_policy == gameData->policyTargetsByTurn[turnAfterStart].unreducedNumVisits);
+
+          writeSgfLoc(out, cur_loc, xSize, ySize);
+
+          out << static_cast<int>(cur_policy);
+
+          out << "]";
+        }
+      }
+    }
+
     hist.makeBoardMoveAssumeLegal(board,loc,pla,nullptr);
 
   }
