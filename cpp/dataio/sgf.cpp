@@ -2131,11 +2131,14 @@ void WriteSgf::writeSgf(
   Board board(initialBoard);
   BoardHistory hist(board,endHist.initialPla,endHist.rules,endHist.initialEncorePhase);
   for(size_t i = 0; i<endHist.moveHistory.size(); i++) {
-    comment.clear();
-    out << ";";
-
     Loc loc = endHist.moveHistory[i].loc;
     Player pla = endHist.moveHistory[i].pla;
+
+    if(loc == Board::NULL_LOC || loc == Board::PASS_LOC || loc == Board::RESIGN_LOC)
+      break;
+
+    comment.clear();
+    out << ";";
 
     bool isResignMove = endHist.isGameFinished && endHist.isResignation && endHist.winner == getOpp(pla) && i+1 == endHist.moveHistory.size();
     if(!(omitResignPlayerMove && isResignMove)) {
